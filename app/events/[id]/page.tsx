@@ -103,7 +103,7 @@ export default async function EventDetailsPage({ params }: { params: Promise<{ i
                                                         <div>
                                                             <p className="font-medium text-foreground">{tier.name}</p>
                                                             <p className="text-2xl font-bold tracking-tight text-foreground mt-1">
-                                                                {tier.price === 0 ? "Free" : `$${tier.price.toFixed(2)}`}
+                                                                {tier.price === 0 ? "Free" : `₹${tier.price.toFixed(2)}`}
                                                             </p>
                                                         </div>
                                                         <span className="text-xs font-medium text-muted-foreground bg-background border border-border/50 px-2 py-1 rounded-md">

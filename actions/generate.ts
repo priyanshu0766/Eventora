@@ -5,19 +5,19 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 export async function generateEventData(prompt: string) {
-    try {
-        if (!process.env.GEMINI_API_KEY) {
-            throw new Error("Gemini API key is not configured.");
-        }
+  try {
+    if (!process.env.GEMINI_API_KEY) {
+      throw new Error("Gemini API key is not configured.");
+    }
 
-        const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
-            generationConfig: {
-                responseMimeType: "application/json",
-            }
-        });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      generationConfig: {
+        responseMimeType: "application/json",
+      }
+    });
 
-        const systemPrompt = `
+    const systemPrompt = `
 You are an expert event organizer API. 
 The user is going to provide a short description or idea for an event.
 Your job is to generate a comprehensive, exciting, and highly detailed event configuration based on their prompt.
@@ -31,12 +31,12 @@ You MUST output strictly in the following JSON format:
   "tickets": [
     {
       "name": "General Admission",
-      "price": number (in USD, 0 if free),
+      "price": number (in INR, 0 if free),
       "capacity": number (number of seats)
     },
     {
       "name": "VIP",
-      "price": number (in USD),
+      "price": number (in INR),
       "capacity": number (number of seats)
     }
   ],
@@ -46,17 +46,17 @@ You MUST output strictly in the following JSON format:
 }
 `;
 
-        const result = await model.generateContent([
-            { text: systemPrompt },
-            { text: `User Prompt: ${prompt}` }
-        ]);
+    const result = await model.generateContent([
+      { text: systemPrompt },
+      { text: `User Prompt: ${prompt}` }
+    ]);
 
-        const responseText = result.response.text();
-        const data = JSON.parse(responseText);
+    const responseText = result.response.text();
+    const data = JSON.parse(responseText);
 
-        return { success: true, data };
-    } catch (error: any) {
-        console.error("Failed to generate event data:", error);
-        return { success: false, error: error.message || "Failed to generate event." };
-    }
+    return { success: true, data };
+  } catch (error: any) {
+    console.error("Failed to generate event data:", error);
+    return { success: false, error: error.message || "Failed to generate event." };
+  }
 }

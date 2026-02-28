@@ -91,7 +91,7 @@ export default async function MyEventsPage() {
 
                                         <div className="mt-6 pt-6 border-t border-border/50 flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
                                             <div className="font-medium text-lg">
-                                                {event.price === 0 ? "Free" : `$${event.price}`}
+                                                {event.price === 0 ? "Free" : `₹${event.price}`}
                                             </div>
                                             <div className="flex items-center gap-2 w-full sm:w-auto">
                                                 <Button size="sm" variant="outline" className="w-full sm:w-auto flex-1" asChild>

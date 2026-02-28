@@ -87,7 +87,7 @@ export default async function Home() {
                                                     <span>{format(new Date(event.startDate), "MMM d, yyyy")}</span>
                                                 </div>
                                                 <div className="text-foreground">
-                                                    {event.price === 0 ? "Free" : `$${event.price}`}
+                                                    {event.price === 0 ? "Free" : `₹${event.price}`}
                                                 </div>
                                             </div>
                                         </div>
