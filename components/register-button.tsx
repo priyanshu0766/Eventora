@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { registerForEvent } from "@/actions/tickets";
-import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
 interface RegisterButtonProps {
@@ -15,21 +14,18 @@ interface RegisterButtonProps {
 
 export function RegisterButton({ eventId, tierId, tierName, tierPrice }: RegisterButtonProps) {
     const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
 
     async function handleRegister() {
         try {
             setIsLoading(true);
             const res = await registerForEvent(eventId, tierId, tierName, tierPrice);
 
-            if (res.success) {
-                if (res.url) {
-                    router.push(res.url);
-                } else {
-                    router.push("/dashboard/tickets");
-                }
-            } else {
-                alert(res.error || "Something went wrong creating your ticket.");
+            if (res.success && res.url) {
+                // Use window.location.href for Stripe's external checkout URL
+                // (router.push doesn't work for external URLs)
+                window.location.href = res.url;
+            } else if (!res.success) {
+                alert(res.error || "Something went wrong.");
                 setIsLoading(false);
             }
         } catch (error) {
@@ -52,7 +48,7 @@ export function RegisterButton({ eventId, tierId, tierName, tierPrice }: Registe
                     Processing...
                 </>
             ) : (
-                tierPrice === 0 ? "Register for Free" : `Buy — $${tierPrice.toFixed(2)}`
+                tierPrice === 0 ? "Register for Free" : `Buy — ₹${tierPrice.toFixed(2)}`
             )}
         </Button>
     );
