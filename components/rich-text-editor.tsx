@@ -21,6 +21,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
             }),
         ],
         content: value,
+        immediatelyRender: false,
         editorProps: {
             attributes: {
                 class: "min-h-[150px] w-full rounded-md border border-border/40 bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-h2:my-2 prose-h2:text-xl",
